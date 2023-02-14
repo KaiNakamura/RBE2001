@@ -53,6 +53,7 @@ void BlueMotor::isrB() {
     count--;
   }
 }
+
 double BlueMotor::toTicks(double position, Units units) {
   switch (units) {
     case TICKS:
@@ -145,4 +146,20 @@ bool BlueMotor::moveToByRotations(double rotations) {
 
 bool BlueMotor::moveToByDegrees(double degrees) {
   return moveTo(degrees, DEGREES);
+}
+
+void BlueMotor::moveToSetpoint(double setpoint, Units units) {
+  while (!moveTo(setpoint, units));
+}
+
+void BlueMotor::moveToStartingSetpoint() {
+  moveToSetpoint(STARTING_SETPOINT, ROTATIONS);
+}
+
+void BlueMotor::moveToRoof45DegreeSetpoint() {
+  moveToSetpoint(ROOF_45_DEGREE_SETPOINT, ROTATIONS);
+}
+
+void BlueMotor::moveToRoof25DegreeSetpoint() {
+  moveToSetpoint(ROOF_25_DEGREE_SETPOINT, ROTATIONS);
 }

@@ -14,10 +14,10 @@ void setup() {
 }
 
 void loop() {
-  while (!blueMotor.moveToByRotations(1));
-  Serial.println("Reached 1 rotations");
-  delay(1000);
-  while (!blueMotor.moveToByRotations(0));
-  Serial.println("Reached 0 rotations");
-  delay(1000);
+  blueMotor.moveToStartingSetpoint();
+  delay(2000);
+  blueMotor.moveToRoof45DegreeSetpoint();
+  delay(2000);
+  blueMotor.moveToRoof25DegreeSetpoint();
+  delay(2000);
 }
