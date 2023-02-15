@@ -80,20 +80,9 @@ void setup() {
   clawGripper.setup();
   blueMotor.setup();
   linearGripper.setup();
-
-  // placeOnRoof25Degrees();
-  // removeFrom25Degrees();
-  // placeOnRoof45Degrees();
-  // removeFrom45Degrees();
 }
 
 void loop() {
-  if (buttonA.isPressed()) {
-    clawGripper.close();
-  } else if (buttonB.isPressed()) {
-    clawGripper.open();
-  }
-
   battery.update();
   drivebase.update();
   clawGripper.update();

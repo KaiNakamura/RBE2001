@@ -12,27 +12,26 @@ void ClawGripper::setup() {
 void ClawGripper::update() {
   switch (state) {
     case OPENING:
-      servo.writeMicroseconds(OPEN_SETPOINT);
       if (isOpen()) {
         state = OPEN;
       } else if (isStuck()) {
         close();
+      } else {
+        servo.writeMicroseconds(SERVO_OPEN);
       }
       break;
     case CLOSING:
-      servo.writeMicroseconds(CLOSED_POSITION);
       if (isClosed()) {
         state = CLOSED;
       } else if (isStuck()) {
         open();
+      } else {
+        servo.writeMicroseconds(SERVO_CLOSE);
       }
       break;
     default:
       break;
   }
-
-  Serial.print("Claw Gripper State: ");
-  Serial.println(state);
 }
 
 void ClawGripper::reset() {

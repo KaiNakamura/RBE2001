@@ -11,21 +11,33 @@ public:
   void setup();
   void update();
   void reset();
+  void resetStuckCalculations(long delay);
+  void resetStuckCalculations();
   void open();
   void close();
-  double getPosition();
-  void setEffort(double effort);
-  bool moveTo(double target);
+  int getPosition();
 
 private:
   static const int POTENTIOMETER_PIN = A0;
-  static constexpr double OPEN_SETPOINT = 700;
-  static constexpr double CLOSED_SETPOINT = 200;
-  static constexpr double MIN_MOVE_SPEED = 0;
-  static constexpr double MOVE_TO_TOLERANCE = 50;
-  static constexpr double MOVE_TO_K_P = 50;
-  static const int SERVO_DOWN = 1300;
-  static const int SERVO_UP = 1700;
-  static const int SERVO_STOP = 1490;
-  Servo32U4Pin6 linearServo;
+  static const int SERVO_OPEN = 1000; // us
+  static const int SERVO_CLOSE = 2000; // us
+  static const int SERVO_STOP = 1490; // us
+  static const int OPEN_POSITION = 700; // ticks
+  static const int CLOSED_POSITION = 200; // ticks
+  static const int IS_AT_POSITION_TOLERANCE = 2; // ticks
+  static const int MIN_DISTANCE_COVERED_BEFORE_STUCK = 3; // ticks
+  static const int SERVO_ACCELERATION_TIME = 2000; // ms
+  static const int DISTANCE_COVERED_TIME_FRAME = 500; // ms
+  static const int MAX_NUM_FAILED_MOVEMENTS = 5;
+  enum State { OPEN, CLOSED, OPENING, CLOSING };
+  State state;
+  Servo32U4Pin5 servo;
+  long lastTime;
+  int lastPosition;
+  int distanceCovered;
+  int numFailedMovements;
+  bool isAtPosition(int position);
+  bool isOpen();
+  bool isClosed();
+  bool isStuck();
 };

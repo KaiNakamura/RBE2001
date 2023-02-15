@@ -16,10 +16,9 @@ public:
   int getPosition();
 
 private:
-  static const int SERVO_PIN = 5;
   static const int ENCODER_PIN = A0;
-  static const int OPEN_SETPOINT = 2000; // us
-  static const int CLOSE_SETPOINT = 1000; // us
+  static const int SERVO_OPEN = 2000; // us
+  static const int SERVO_CLOSE = 1000; // us
   static const int OPEN_POSITION = 376; // ticks
   static const int CLOSED_POSITION = 195; // ticks
   static const int IS_AT_POSITION_TOLERANCE = 10; // ticks
@@ -27,7 +26,7 @@ private:
   enum State { OPEN, CLOSED, OPENING, CLOSING };
   State state;
   Servo32U4Pin5 servo;
-  double lastTimeBeforeMoving;
+  long lastTimeBeforeMoving;
   bool isAtPosition(int position);
   bool isOpen();
   bool isClosed();
