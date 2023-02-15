@@ -1,8 +1,8 @@
 #include "Battery.h"
 #include <Romi32U4.h>
 
-bool Battery::isBatteryLow() {
-  return readBatteryMillivolts() < MIN_BATTERY_MILLIVOLTS;
+void Battery::setup() {
+
 }
 
 void Battery::update() {
@@ -13,3 +13,10 @@ void Battery::update() {
   }
 }
 
+void Battery::reset() {
+
+}
+
+bool Battery::isBatteryLow() {
+  return readBatteryMillivolts() < MIN_BATTERY_MILLIVOLTS;
+}

@@ -7,10 +7,15 @@
 #include "Constants.h"
 #include <servo32u4.h>
 
+Battery battery;
 Drivebase drivebase;
 BlueMotor blueMotor;
 ClawGripper clawGripper;
 LinearGripper linearGripper;
+
+Romi32U4ButtonA buttonA;
+Romi32U4ButtonB buttonB;
+Romi32U4ButtonC buttonC;
 
 void placeOnRoof25Degrees() {
   blueMotor.moveToStartingSetpoint();
@@ -70,6 +75,7 @@ void removeFrom45Degrees() {
 
 void setup() {
   Serial.begin(9600);
+  battery.setup();
   drivebase.setup();
   clawGripper.setup();
   blueMotor.setup();
@@ -82,6 +88,13 @@ void setup() {
 }
 
 void loop() {
+  if (buttonA.isPressed()) {
+    clawGripper.close();
+  } else if (buttonB.isPressed()) {
+    clawGripper.open();
+  }
+
+  battery.update();
   drivebase.update();
   clawGripper.update();
   blueMotor.update();

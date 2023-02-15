@@ -1,7 +1,4 @@
 #include "Drivebase.h"
-#include <Chassis.h>
-
-Chassis chassis;
 
 Drivebase::Drivebase() {
 }

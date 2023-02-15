@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Arduino.h>
+#include <Chassis.h>
 #include "subsystems/Subsystem.h"
 #include "Constants.h"
 
@@ -12,4 +12,5 @@ public:
   void reset();
 
 private:
+  Chassis chassis;
 };

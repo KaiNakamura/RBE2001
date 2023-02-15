@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Arduino.h>
+#include <Servo32u4.h>
 #include "subsystems/Subsystem.h"
 #include "Constants.h"
 
@@ -26,4 +27,5 @@ private:
   static const int SERVO_DOWN = 1300;
   static const int SERVO_UP = 1700;
   static const int SERVO_STOP = 1490;
+  Servo32U4Pin6 linearServo;
 };
