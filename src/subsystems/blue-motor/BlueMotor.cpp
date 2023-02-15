@@ -3,10 +3,7 @@
 #include <Romi32U4.h>
 #include "Constants.h"
 
-long oldValue = 0;
-long newValue;
 long count = 0;
-unsigned time = 0;
 
 static int encAVal;
 static int encBVal;
@@ -28,6 +25,10 @@ void BlueMotor::setup() {
   attachInterrupt(digitalPinToInterrupt(ENCA_PIN), isrA, CHANGE);
   attachInterrupt(digitalPinToInterrupt(ENCB_PIN), isrB, CHANGE);
   reset();
+}
+
+void BlueMotor::update() {
+
 }
 
 void BlueMotor::reset() {

@@ -1,11 +1,13 @@
 #pragma once
 
+#include "subsystems/Subsystem.h"
 #include "Constants.h"
 
-class BlueMotor {
+class BlueMotor: public Subsystem {
 public:
   BlueMotor();
   void setup();
+  void update();
   void reset();
   double getTicks();
   double getRotations();
@@ -35,6 +37,6 @@ private:
   static const int MOVE_TO_TOLERANCE = 3; // ticks
   static constexpr double MOVE_TO_K_P = 50;
   static constexpr double STARTING_SETPOINT = 0; // rotations
-  static constexpr double ROOF_45_DEGREE_SETPOINT = 14; // rotations
+  static constexpr double ROOF_45_DEGREE_SETPOINT = 12; // rotations
   static constexpr double ROOF_25_DEGREE_SETPOINT = 18; // rotations
 };
