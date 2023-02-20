@@ -1,5 +1,5 @@
-#include "Battery.h"
 #include <Romi32U4.h>
+#include "Battery.h"
 
 void Battery::setup() {
 

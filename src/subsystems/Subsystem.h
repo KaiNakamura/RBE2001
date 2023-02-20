@@ -1,12 +1,10 @@
 #pragma once
 
-#include "Constants.h"
-
 class Subsystem {
 public:
-  virtual void setup();
-  virtual void update();
-  virtual void reset();
+  virtual void setup() = 0;
+  virtual void update() = 0;
+  virtual void reset() = 0;
 
 private:
 };

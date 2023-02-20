@@ -1,9 +1,7 @@
 #pragma once
 
-#include <Arduino.h>
-#include <Servo32u4.h>
 #include "subsystems/Subsystem.h"
-#include "Constants.h"
+#include <Servo32u4.h>
 
 class ClawGripper: public Subsystem {
 public:
