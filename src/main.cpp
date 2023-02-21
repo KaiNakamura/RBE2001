@@ -2,6 +2,7 @@
 #include "command/scheduler/Scheduler.h"
 #include "command/wait-command/WaitCommand.h"
 #include "command/parallel-command-group/ParallelCommandGroup.h"
+#include "command/sequential-command-group/SequentialCommandGroup.h"
 #include "subsystems/battery/Battery.h"
 #include "subsystems/drivebase/Drivebase.h"
 #include "subsystems/blue-motor/BlueMotor.h"

@@ -13,7 +13,8 @@ ParallelCommandGroup::ParallelCommandGroup(Command *command1, Command *command2)
 }
 
 ParallelCommandGroup::ParallelCommandGroup(Command *command1, Command *command2, Command *command3) {
-  ParallelCommandGroup(command1, command2);
+  this->commands.push_back(command1);
+  this->commands.push_back(command2);
   this->commands.push_back(command3);
 }
 
