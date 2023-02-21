@@ -93,7 +93,7 @@ void setup() {
 
 void loop() {
   scheduler.update();
-  // battery.update();
+  battery.update();
   drivebase.update();
   clawGripper.update();
   blueMotor.update();
