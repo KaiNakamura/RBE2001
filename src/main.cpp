@@ -8,8 +8,9 @@
 #include "subsystems/blue-motor/BlueMotor.h"
 #include "subsystems/claw-gripper/ClawGripper.h"
 #include "subsystems/linear-gripper/LinearGripper.h"
+#include "subsystems/ultrasonic/Ultrasonic.h"
 #include "Constants.h"
-#include <servo32u4.h>
+#include <Servo32u4.h>
 
 Scheduler scheduler;
 Battery battery;
@@ -17,6 +18,7 @@ Drivebase drivebase;
 BlueMotor blueMotor;
 ClawGripper clawGripper;
 LinearGripper linearGripper;
+Ultrasonic ultrasonic;
 
 Romi32U4ButtonA buttonA;
 Romi32U4ButtonB buttonB;
@@ -86,6 +88,7 @@ void setup() {
   clawGripper.setup();
   blueMotor.setup();
   linearGripper.setup();
+  ultrasonic.setup();
 }
 
 void loop() {
@@ -95,4 +98,5 @@ void loop() {
   clawGripper.update();
   blueMotor.update();
   linearGripper.update();
+  ultrasonic.update();
 }

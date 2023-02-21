@@ -1,4 +1,5 @@
 #include <Romi32U4.h>
+#include "Constants.h"
 #include "Battery.h"
 
 void Battery::setup() {
@@ -6,7 +7,7 @@ void Battery::setup() {
 }
 
 void Battery::update() {
-  if (isBatteryLow()) {
+  if (BATTERY_PROTECTION_ENABLED && isBatteryLow()) {
     Serial.println("WARNING: Low battery!");
   }
 }
