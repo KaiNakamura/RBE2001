@@ -9,7 +9,7 @@
 #include "subsystems/linear-gripper/LinearGripper.h"
 #include "subsystems/ultrasonic/Ultrasonic.h"
 #include "Constants.h"
-#include <servo32u4.h>
+#include <Servo32u4.h>
 
 Scheduler scheduler;
 Battery battery;
@@ -98,7 +98,5 @@ void loop() {
   blueMotor.update();
   linearGripper.update();
   ultrasonic.update();
-  Serial.print("Distance: ");
-  Serial.println(ultrasonic.findDistance());
-  delay(100);
+  Serial.println(ultrasonic.getDistance());
 }

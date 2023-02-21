@@ -3,9 +3,6 @@
 #include <Romi32U4.h>
 #include "Constants.h"
 
-static int duration;
-static float distance;
-
 Ultrasonic::Ultrasonic() {
 }
 
@@ -15,23 +12,20 @@ void Ultrasonic::setup() {
   reset();
 }
 
+// TODO: Rewrite so that this doesn't use delay
 void Ultrasonic::update() {
-
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+  distance = pulseIn(ECHO_PIN, HIGH) * DURATION_TO_CENTIMETERS;
 }
 
 void Ultrasonic::reset() {
-  noInterrupts();
-
-  interrupts();
+  distance = 0;
 }
 
-float Ultrasonic::findDistance(){
-    digitalWrite(TRIG_PIN, LOW);
-    delayMicroseconds(2);
-    digitalWrite(TRIG_PIN, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(TRIG_PIN, LOW);
-    duration = pulseIn(ECHO_PIN, HIGH);
-    distance = duration * 0.034 / 2;
-    return distance;
+double Ultrasonic::getDistance(){
+  return distance;
 }
