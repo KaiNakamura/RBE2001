@@ -1,8 +1,5 @@
 #include "Ultrasonic.h"
-#include <Arduino.h>
-#include <Romi32U4.h>
 #include <HCSR04.h>
-#include "Constants.h"
 
 Ultrasonic::Ultrasonic() {
 }
@@ -12,11 +9,9 @@ void Ultrasonic::setup() {
 }
 
 void Ultrasonic::update() {
-
 }
 
 void Ultrasonic::reset() {
-
 }
 
 double Ultrasonic::getDistance(){
