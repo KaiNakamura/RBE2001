@@ -119,7 +119,20 @@ void BlueMotor::setEffort(double effort, bool clockwise) {
     digitalWrite(AIN2_PIN, HIGH);
   }
   
-  OCR1C = 400 * constrain(effort, 0, 1);
+  OCR1C = constrain(effort, 0, 400);
+}
+
+/**
+ * @param effort A number from -400 to 400
+ */
+void BlueMotor::setEffortWithoutDB(double effort){
+  if (effort > 0){
+    setEffort((effort/400) * (400 - MOVE_UP_DB) + MOVE_UP_DB);
+  } else if (effort < 0){
+    effort = -effort;
+    setEffort(-((effort/400) * (400 - MOVE_DOWN_DB) + MOVE_DOWN_DB));
+  }
+
 }
 
 /**

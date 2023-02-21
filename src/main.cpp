@@ -4,6 +4,7 @@
 #include "subsystems/blue-motor/BlueMotor.h"
 #include "subsystems/claw-gripper/ClawGripper.h"
 #include "subsystems/linear-gripper/LinearGripper.h"
+#include "subsystems/ultrasonic/Ultrasonic.h"
 #include "Constants.h"
 #include <servo32u4.h>
 
@@ -12,6 +13,7 @@ Drivebase drivebase;
 BlueMotor blueMotor;
 ClawGripper clawGripper;
 LinearGripper linearGripper;
+Ultrasonic ultrasonic;
 
 Romi32U4ButtonA buttonA;
 Romi32U4ButtonB buttonB;
@@ -80,12 +82,17 @@ void setup() {
   clawGripper.setup();
   blueMotor.setup();
   linearGripper.setup();
+  ultrasonic.setup();
 }
 
 void loop() {
-  battery.update();
+  //battery.update();
   drivebase.update();
   clawGripper.update();
   blueMotor.update();
   linearGripper.update();
+  ultrasonic.update();
+  Serial.print("Distance: ");
+  Serial.println(ultrasonic.findDistance());
+  delay(100);
 }

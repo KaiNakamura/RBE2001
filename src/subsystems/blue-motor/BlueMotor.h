@@ -14,6 +14,7 @@ public:
   double getDegrees();
   double getPosition(Units units);
   void setEffort(double effort);
+  void setEffortWithoutDB(double effort);
   bool moveTo(double position, Units units);
   bool moveToByTicks(double ticks);
   bool moveToByRotations(double rotations);
@@ -35,6 +36,8 @@ private:
   static const int ENCB_PIN = 1;
   static const int ENCODER_RESOLUTION = 540;
   static const int MOVE_TO_TOLERANCE = 3; // ticks
+  static constexpr double MOVE_UP_DB = 163;
+  static constexpr double MOVE_DOWN_DB = 151;
   static constexpr double MOVE_TO_K_P = 50;
   static constexpr double STARTING_SETPOINT = 0; // rotations
   static constexpr double ROOF_45_DEGREE_SETPOINT = 12; // rotations
