@@ -7,9 +7,7 @@ void Battery::setup() {
 
 void Battery::update() {
   if (isBatteryLow()) {
-    Serial.println("Stopping because of low battery, press button C to resume.");
-    Romi32U4ButtonC buttonC;
-    buttonC.waitForButton();
+    Serial.println("WARNING: Low battery!");
   }
 }
 

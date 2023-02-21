@@ -1,4 +1,6 @@
 #include <Romi32U4.h>
+#include "command/scheduler/Scheduler.h"
+#include "command/wait-command/WaitCommand.h"
 #include "subsystems/battery/Battery.h"
 #include "subsystems/drivebase/Drivebase.h"
 #include "subsystems/blue-motor/BlueMotor.h"
@@ -7,6 +9,7 @@
 #include "Constants.h"
 #include <servo32u4.h>
 
+Scheduler scheduler;
 Battery battery;
 Drivebase drivebase;
 BlueMotor blueMotor;
@@ -75,6 +78,9 @@ void removeFrom45Degrees() {
 
 void setup() {
   Serial.begin(9600);
+  scheduler.setup();
+  scheduler.schedule(new WaitCommand(5000));
+
   battery.setup();
   drivebase.setup();
   clawGripper.setup();
@@ -83,7 +89,8 @@ void setup() {
 }
 
 void loop() {
-  battery.update();
+  scheduler.update();
+  // battery.update();
   drivebase.update();
   clawGripper.update();
   blueMotor.update();
