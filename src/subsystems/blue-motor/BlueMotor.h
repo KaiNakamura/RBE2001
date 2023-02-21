@@ -14,7 +14,6 @@ public:
   double getDegrees();
   double getPosition(Units units);
   void setEffort(double effort);
-  void setEffortWithoutDB(double effort);
   bool moveTo(double position, Units units);
   bool moveToByTicks(double ticks);
   bool moveToByRotations(double rotations);
