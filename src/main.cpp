@@ -7,23 +7,25 @@
 #include "Constants.h"
 #include <Servo32u4.h>
 
+Scheduler *scheduler;
 Robot *robot;
-Scheduler scheduler;
 
 Romi32U4ButtonA buttonA;
 Romi32U4ButtonB buttonB;
 Romi32U4ButtonC buttonC;
 
 void setup() {
+  Serial.begin(9600);
+
+  scheduler = Scheduler::getInstance();
   robot = Robot::getInstance();
 
-  Serial.begin(9600);
-  scheduler.setup();
+  scheduler->setup();
   robot->setup();
 }
 
 void loop() {
-  scheduler.update();
+  scheduler->update();
   robot->update();
 
   // Emergency stop

@@ -5,6 +5,13 @@ Robot *Robot::instance = 0;
 Robot::Robot() {
 }
 
+Robot *Robot::getInstance() {
+  if (!instance) {
+    instance = new Robot();
+  }
+  return instance;
+}
+
 void Robot::setup() {
   subsystems.push_back(&battery);
   subsystems.push_back(&drivebase);
@@ -28,14 +35,6 @@ void Robot::reset() {
   for (size_t i = 0; i < subsystems.size(); i++) {
     subsystems.at(i)->reset();
   }
-}
-
-Robot *Robot::getInstance() {
-  if (!instance) {
-    instance = new Robot();
-  }
-
-  return instance;
 }
 
 Battery Robot::getBattery() {

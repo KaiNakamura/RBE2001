@@ -13,11 +13,12 @@ class Robot: public Subsystem {
 protected:
   Robot();
   static Robot *instance;
+
 public:
+  static Robot *getInstance();
   void setup();
   void update();
   void reset();
-  static Robot *getInstance();
   Battery getBattery();
   Drivebase getDrivebase();
   BlueMotor getBlueMotor();
