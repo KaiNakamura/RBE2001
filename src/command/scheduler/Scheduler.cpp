@@ -1,5 +1,17 @@
 #include "Scheduler.h"
 
+Scheduler *Scheduler::instance = 0;
+
+Scheduler::Scheduler() {
+}
+
+Scheduler *Scheduler::getInstance() {
+  if (!instance) {
+    instance = new Scheduler();
+  }
+  return instance;
+}
+
 void Scheduler::setup() {
   commands.clear();
 }

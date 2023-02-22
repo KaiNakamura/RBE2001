@@ -5,7 +5,12 @@
 #include <Array.h>
 
 class Scheduler {
+protected:
+  Scheduler();
+  static Scheduler *instance;
+
 public:
+  static Scheduler *getInstance();
   void setup();
   void update();
   void schedule(Command *command);
