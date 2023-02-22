@@ -3,8 +3,9 @@
 #include "command/scheduler/Scheduler.h"
 #include "command/wait-command/WaitCommand.h"
 #include "command/drivebase/SetMotorsCommand.h"
-#include "command/parallel-command-group/ParallelCommandGroup.h"
 #include "command/sequential-command-group/SequentialCommandGroup.h"
+#include "command/parallel-command-group/ParallelCommandGroup.h"
+#include "command/parallel-race-command-group/ParallelRaceCommandGroup.h"
 #include "Constants.h"
 #include <Servo32u4.h>
 
@@ -23,8 +24,6 @@ void setup() {
 
   scheduler->setup();
   robot->setup();
-
-  scheduler->schedule(new SetMotorsCommand(0.25, 0.25));
 }
 
 void loop() {
