@@ -19,6 +19,7 @@ public:
   void setup();
   void update();
   void reset();
+  void stop();
   Battery getBattery();
   Drivebase getDrivebase();
   BlueMotor getBlueMotor();

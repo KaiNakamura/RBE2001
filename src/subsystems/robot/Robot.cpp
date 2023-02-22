@@ -37,6 +37,10 @@ void Robot::reset() {
   }
 }
 
+void Robot::stop() {
+  drivebase.stop();
+}
+
 Battery Robot::getBattery() {
   return battery;
 }

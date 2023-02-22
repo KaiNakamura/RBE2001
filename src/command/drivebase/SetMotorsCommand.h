@@ -1,15 +1,16 @@
 #pragma once
 
+#include "subsystems/drivebase/Drivebase.h"
 #include "command/Command.h"
 
 class SetMotorsCommand: public Command {
   public:
-    SetMotorsCommand(unsigned long millis);
-    SetMotorsCommand(int millis);
+    SetMotorsCommand(double left, double right);
+    SetMotorsCommand(double both);
     void execute();
     bool isFinished();
     void end();
   private:
-    unsigned long start = 0;
-    unsigned long duration;
+    Drivebase drivebase;
+    double left, right;
 };
