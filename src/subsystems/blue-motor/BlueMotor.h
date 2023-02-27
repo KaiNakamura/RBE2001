@@ -28,11 +28,11 @@ private:
   static void isrA();
   static void isrB();
   static double toTicks(double position, Units units);
-  static const int PWM_OUT_PIN = 11;
-  static const int AIN2_PIN = 4;
-  static const int AIN1_PIN = 13;
-  static const int ENCA_PIN = 0;
-  static const int ENCB_PIN = 1;
+  static const uint8_t PWM_OUT_PIN = 11;
+  static const uint8_t AIN2_PIN = 4;
+  static const uint8_t AIN1_PIN = 13;
+  static const uint8_t ENCA_PIN = 0;
+  static const uint8_t ENCB_PIN = 1;
   static const int ENCODER_RESOLUTION = 540;
   static const int MOVE_TO_TOLERANCE = 3; // ticks
   static constexpr double MOVE_TO_K_P = 50;

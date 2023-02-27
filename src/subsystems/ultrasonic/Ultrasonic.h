@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Arduino.h>
 #include "subsystems/Subsystem.h"
 
 class Ultrasonic: public Subsystem {
@@ -11,6 +12,6 @@ public:
   double getDistance();
 
 private:
-  static const int TRIG_PIN = 12;
-  static const int ECHO_PIN = 0;
+  static const uint8_t TRIG_PIN = 12;
+  static const uint8_t ECHO_PIN = 0;
 };

@@ -30,10 +30,18 @@ void loop() {
   scheduler->update();
   robot->update();
 
+  // Serial.println(robot->getLineSensor().getValue());
+
+  // Serial.println("loop");
+  // Serial.print("Line Sensor: ");
+
+  // robot->getLineSensor().getValue();
+  // Serial.println(robot->getUltrasonic().getDistance());
+
   // Emergency stop
-  if (buttonA.getSingleDebouncedPress()) {
-    while (!buttonA.getSingleDebouncedRelease());
-    robot->stop();
-    while (!buttonA.getSingleDebouncedPress()) ;
-  }
+  // if (buttonA.getSingleDebouncedPress()) {
+  //   while (!buttonA.getSingleDebouncedRelease());
+  //   robot->stop();
+  //   while (!buttonA.getSingleDebouncedPress()) ;
+  // }
 }

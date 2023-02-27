@@ -19,6 +19,7 @@ void Robot::setup() {
   subsystems.push_back(&clawGripper);
   subsystems.push_back(&linearGripper);
   subsystems.push_back(&ultrasonic);
+  subsystems.push_back(&lineSensor);
 
   for (size_t i = 0; i < subsystems.size(); i++) {
     subsystems.at(i)->setup();
@@ -27,6 +28,8 @@ void Robot::setup() {
 
 void Robot::update() {
   for (size_t i = 0; i < subsystems.size(); i++) {
+    // Serial.print("Updating: ");
+    // Serial.println(i);
     subsystems.at(i)->update();
   }
 }
@@ -63,4 +66,8 @@ LinearGripper Robot::getLinearGripper() {
 
 Ultrasonic Robot::getUltrasonic() {
   return ultrasonic;
+}
+
+LineSensor Robot::getLineSensor() {
+  return lineSensor;
 }
