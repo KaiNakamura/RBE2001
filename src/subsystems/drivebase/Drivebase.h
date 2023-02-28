@@ -9,7 +9,8 @@ public:
   void setup();
   void update();
   void reset();
+  void setMotors(double left, double right);
+  void stop();
 
 private:
-  Chassis chassis;
 };
