@@ -3,7 +3,6 @@
 #include "Battery.h"
 
 void Battery::setup() {
-
 }
 
 void Battery::update() {
@@ -13,7 +12,6 @@ void Battery::update() {
 }
 
 void Battery::reset() {
-
 }
 
 bool Battery::isBatteryLow() {

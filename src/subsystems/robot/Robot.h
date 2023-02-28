@@ -21,13 +21,13 @@ public:
   void update();
   void reset();
   void stop();
-  Battery getBattery();
-  Drivebase getDrivebase();
-  BlueMotor getBlueMotor();
-  ClawGripper getClawGripper();
-  LinearGripper getLinearGripper();
-  Ultrasonic getUltrasonic();
-  LineSensor getLineSensor();
+  Battery *getBattery();
+  Drivebase *getDrivebase();
+  BlueMotor *getBlueMotor();
+  ClawGripper *getClawGripper();
+  LinearGripper *getLinearGripper();
+  Ultrasonic *getUltrasonic();
+  LineSensor *getLineSensor();
 
 private:
   static const int NUM_SUBSYSTEMS = 7;

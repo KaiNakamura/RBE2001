@@ -28,8 +28,6 @@ void Robot::setup() {
 
 void Robot::update() {
   for (size_t i = 0; i < subsystems.size(); i++) {
-    // Serial.print("Updating: ");
-    // Serial.println(i);
     subsystems.at(i)->update();
   }
 }
@@ -44,30 +42,30 @@ void Robot::stop() {
   drivebase.stop();
 }
 
-Battery Robot::getBattery() {
-  return battery;
+Battery *Robot::getBattery() {
+  return &battery;
 }
 
-Drivebase Robot::getDrivebase() {
-  return drivebase;
+Drivebase *Robot::getDrivebase() {
+  return &drivebase;
 }
 
-BlueMotor Robot::getBlueMotor() {
-  return blueMotor;
+BlueMotor *Robot::getBlueMotor() {
+  return &blueMotor;
 }
 
-ClawGripper Robot::getClawGripper() {
-  return clawGripper;
+ClawGripper *Robot::getClawGripper() {
+  return &clawGripper;
 }
 
-LinearGripper Robot::getLinearGripper() {
-  return linearGripper;
+LinearGripper *Robot::getLinearGripper() {
+  return &linearGripper;
 }
 
-Ultrasonic Robot::getUltrasonic() {
-  return ultrasonic;
+Ultrasonic *Robot::getUltrasonic() {
+  return &ultrasonic;
 }
 
-LineSensor Robot::getLineSensor() {
-  return lineSensor;
+LineSensor *Robot::getLineSensor() {
+  return &lineSensor;
 }

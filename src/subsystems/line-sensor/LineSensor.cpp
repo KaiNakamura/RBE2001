@@ -4,39 +4,58 @@ LineSensor::LineSensor() {
 }
 
 void LineSensor::setup() {
-  pinMode(LEFT_0_PIN, INPUT);
-  pinMode(LEFT_1_PIN, INPUT);
-  pinMode(RIGHT_0_PIN, INPUT);
-  pinMode(RIGHT_1_PIN, INPUT);
+  pinMode(LEFT_PIN, INPUT);
+  pinMode(RIGHT_PIN, INPUT);
   reset();
 }
 
 void LineSensor::update() {
-  left0Raw += analogRead(LEFT_0_PIN);
-  left1Raw += analogRead(LEFT_1_PIN);
-  right0Raw += analogRead(RIGHT_0_PIN);
-  right1Raw += analogRead(RIGHT_1_PIN);
+  // Read sensor values
+  leftRaw += analogRead(LEFT_PIN);
+  rightRaw += analogRead(RIGHT_PIN);
+  numReads++;
 
-  long elapsed = millis() - lastTime;
-  if (elapsed > READ_TIME) {
-    leftValue = lerp((left1Raw - left0Raw) / READ_TIME, LEFT_WHITE, LEFT_BLACK);
-    rightValue = lerp((right1Raw - right0Raw) / READ_TIME, RIGHT_WHITE, RIGHT_BLACK);
+  // If we've read enough values, take averages
+  if (numReads >= MAX_NUM_READS) {
+    // For calibration
+    // Serial.print(leftRaw / numReads);
+    // Serial.print("\t");
+    // Serial.println(rightRaw / numReads);
+
+    leftValue = lerp(leftRaw / numReads, LEFT_WHITE, LEFT_BLACK);
+    rightValue = lerp(rightRaw / numReads, RIGHT_WHITE, RIGHT_BLACK);
     reset();
   }
 }
 
 void LineSensor::reset() {
   lastTime = millis();
-  left0Raw = 0;
-  left1Raw = 0;
-  right0Raw = 0;
-  right1Raw = 0;
+  numReads = 0;
+  leftRaw = 0;
+  rightRaw = 0;
 }
 
 double LineSensor::lerp(double value, double min, double max) {
   return (value - min) / (max - min);
 }
 
+/**
+ * Returns value from 0 to 1
+ */
+double LineSensor::getLeftValue() {
+  return leftValue;
+}
+
+/**
+ * Returns value from 0 to 1
+ */
+double LineSensor::getRightValue() {
+  return rightValue;
+}
+
+/**
+ * Returns negative values if to the left and positive values if to the right
+ */
 double LineSensor::getValue() {
   return leftValue - rightValue;
 }

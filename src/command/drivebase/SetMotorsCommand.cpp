@@ -12,7 +12,7 @@ SetMotorsCommand::SetMotorsCommand(double both) {
 }
 
 void SetMotorsCommand::execute() {
-  drivebase.setMotors(left, right);
+  drivebase->setMotors(left, right);
 }
 
 bool SetMotorsCommand::isFinished() {
@@ -20,5 +20,5 @@ bool SetMotorsCommand::isFinished() {
 }
 
 void SetMotorsCommand::end() {
-  drivebase.stop();
+  drivebase->stop();
 }
