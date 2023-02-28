@@ -19,6 +19,7 @@ void Robot::setup() {
   subsystems.push_back(&clawGripper);
   subsystems.push_back(&linearGripper);
   subsystems.push_back(&ultrasonic);
+  subsystems.push_back(&lineSensor);
 
   for (size_t i = 0; i < subsystems.size(); i++) {
     subsystems.at(i)->setup();
@@ -41,26 +42,30 @@ void Robot::stop() {
   drivebase.stop();
 }
 
-Battery Robot::getBattery() {
-  return battery;
+Battery *Robot::getBattery() {
+  return &battery;
 }
 
-Drivebase Robot::getDrivebase() {
-  return drivebase;
+Drivebase *Robot::getDrivebase() {
+  return &drivebase;
 }
 
-BlueMotor Robot::getBlueMotor() {
-  return blueMotor;
+BlueMotor *Robot::getBlueMotor() {
+  return &blueMotor;
 }
 
-ClawGripper Robot::getClawGripper() {
-  return clawGripper;
+ClawGripper *Robot::getClawGripper() {
+  return &clawGripper;
 }
 
-LinearGripper Robot::getLinearGripper() {
-  return linearGripper;
+LinearGripper *Robot::getLinearGripper() {
+  return &linearGripper;
 }
 
-Ultrasonic Robot::getUltrasonic() {
-  return ultrasonic;
+Ultrasonic *Robot::getUltrasonic() {
+  return &ultrasonic;
+}
+
+LineSensor *Robot::getLineSensor() {
+  return &lineSensor;
 }

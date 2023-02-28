@@ -16,7 +16,7 @@ public:
   int getPosition();
 
 private:
-  static const int POTENTIOMETER_PIN = A0;
+  static const uint8_t POTENTIOMETER_PIN = A0;
   static const int SERVO_OPEN = 1000; // us
   static const int SERVO_CLOSE = 2000; // us
   static const int SERVO_STOP = 1490; // us

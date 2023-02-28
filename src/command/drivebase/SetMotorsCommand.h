@@ -11,6 +11,6 @@ class SetMotorsCommand: public Command {
     bool isFinished();
     void end();
   private:
-    Drivebase drivebase;
+    Drivebase *drivebase;
     double left, right;
 };

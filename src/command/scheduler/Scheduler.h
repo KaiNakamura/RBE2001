@@ -13,6 +13,7 @@ public:
   static Scheduler *getInstance();
   void setup();
   void update();
+  void reset();
   void schedule(Command *command);
 
 private:

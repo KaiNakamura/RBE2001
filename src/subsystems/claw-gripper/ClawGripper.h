@@ -14,7 +14,7 @@ public:
   int getPosition();
 
 private:
-  static const int ENCODER_PIN = A0;
+  static const uint8_t ENCODER_PIN = A0;
   static const int SERVO_OPEN = 2000; // us
   static const int SERVO_CLOSE = 1000; // us
   static const int OPEN_POSITION = 376; // ticks

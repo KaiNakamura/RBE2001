@@ -7,6 +7,7 @@
 #include "subsystems/claw-gripper/ClawGripper.h"
 #include "subsystems/linear-gripper/LinearGripper.h"
 #include "subsystems/ultrasonic/Ultrasonic.h"
+#include "subsystems/line-sensor/LineSensor.h"
 #include <Array.h>
 
 class Robot: public Subsystem {
@@ -20,15 +21,16 @@ public:
   void update();
   void reset();
   void stop();
-  Battery getBattery();
-  Drivebase getDrivebase();
-  BlueMotor getBlueMotor();
-  ClawGripper getClawGripper();
-  LinearGripper getLinearGripper();
-  Ultrasonic getUltrasonic();
+  Battery *getBattery();
+  Drivebase *getDrivebase();
+  BlueMotor *getBlueMotor();
+  ClawGripper *getClawGripper();
+  LinearGripper *getLinearGripper();
+  Ultrasonic *getUltrasonic();
+  LineSensor *getLineSensor();
 
 private:
-  static const int NUM_SUBSYSTEMS = 6;
+  static const int NUM_SUBSYSTEMS = 7;
   Array<Subsystem *, NUM_SUBSYSTEMS> subsystems;
   Battery battery;
   Drivebase drivebase;
@@ -36,4 +38,5 @@ private:
   ClawGripper clawGripper;
   LinearGripper linearGripper;
   Ultrasonic ultrasonic;
+  LineSensor lineSensor;
 };

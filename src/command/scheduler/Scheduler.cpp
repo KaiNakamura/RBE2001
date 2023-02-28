@@ -16,6 +16,15 @@ void Scheduler::setup() {
   commands.clear();
 }
 
+void Scheduler::reset() {
+  // End all commands
+  for (size_t i = 0; i < commands.size(); i++) {
+    commands.at(i)->end();
+  }
+
+  setup();
+}
+
 void Scheduler::update() {
   for (size_t i = 0; i < commands.size(); i++) {
     Command *command = commands.at(i);
