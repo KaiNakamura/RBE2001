@@ -1,6 +1,7 @@
 #pragma once
 
 #include <IRdecoder.h>
+#include "Constants.h"
 #include "subsystems/Subsystem.h"
 
 class IRSensor: public Subsystem {
@@ -9,8 +10,7 @@ public:
   void setup();
   void update();
   void reset();
+  int16_t getCode();
 
 private:
-  static const int PIN = 3;
-  IRDecoder irSensor = IRDecoder(PIN);
 };
