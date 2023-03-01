@@ -2,6 +2,13 @@
 #include "subsystems/robot/Robot.h"
 #include "command/scheduler/Scheduler.h"
 #include "command/remote/Remote.h"
+#include "command/wait-command/WaitCommand.h"
+#include "command/line-sensor/FollowLineCommand.h"
+#include "command/line-sensor/WaitForLineCommand.h"
+#include "command/drivebase/SetMotorsCommand.h"
+#include "command/sequential-command-group/SequentialCommandGroup.h"
+#include "command/parallel-command-group/ParallelCommandGroup.h"
+#include "command/parallel-race-command-group/ParallelRaceCommandGroup.h"
 #include "Constants.h"
 
 Scheduler *scheduler;
@@ -33,5 +40,14 @@ void loop() {
     while (!buttonC.getSingleDebouncedRelease());
     robot->stop();
     while (!buttonC.getSingleDebouncedPress());
+  }
+
+  if (buttonB.getSingleDebouncedPress()) {
+    while (!buttonB.getSingleDebouncedRelease());
+    Serial.println("Button B pressed, scheduling command");
+    scheduler->schedule(new SequentialCommandGroup(
+      new WaitCommand(1000),
+      new WaitCommand(2000)
+    ));
   }
 }

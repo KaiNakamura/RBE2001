@@ -41,37 +41,46 @@ void Remote::update() {
       scheduler->reset();
       break;
     case NUM_0_10:
-      // scheduler->schedule(new ParallelRaceCommandGroup(
-      //   new FollowLineCommand(0.1),
-      //   new WaitForLineCommand()
-      // ));
       break;
     case NUM_1:
       Serial.println("NUM_1");
+      scheduler->schedule(new WaitCommand(1000));
       break;
     case NUM_2:
       Serial.println("NUM_2");
-      scheduler->schedule(new ParallelRaceCommandGroup(
-        new SetMotorsCommand(0.2),
-        new WaitCommand(1000)
+      scheduler->schedule(new SequentialCommandGroup(
+        new WaitCommand(1000),
+        new WaitCommand(2000)
       ));
       break;
     case NUM_3:
       Serial.println("NUM_3");
+      scheduler->schedule(new ParallelCommandGroup(
+        new WaitCommand(1000),
+        new WaitCommand(2000)
+      ));
       break;
     case NUM_4:
+      Serial.println("NUM_4");
+      scheduler->schedule(new WaitCommand(1000));
+      scheduler->schedule(new WaitCommand(1000));
       break;
     case NUM_5:
+      Serial.println("NUM_5");
+      scheduler->schedule(new SequentialCommandGroup(
+        new WaitCommand(1000),
+        new WaitCommand(2000)
+      ));
+      scheduler->schedule(new SequentialCommandGroup(
+        new WaitCommand(1000),
+        new WaitCommand(2000)
+      ));
       break;
     case NUM_6:
       break;
     case NUM_7:
       break;
     case NUM_8:
-      // scheduler->schedule(new ParallelRaceCommandGroup(
-      //   new SetMotorsCommand(-0.2),
-      //   new WaitCommand(1000)
-      // ));
       break;
     case NUM_9:
       break;

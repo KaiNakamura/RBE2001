@@ -17,5 +17,5 @@ public:
   void schedule(Command *command);
 
 private:
-  Array<Command *, MAX_COMMANDS> commands;
+  Array<Command *, MAX_COMMANDS> *commands;
 };

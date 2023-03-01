@@ -3,6 +3,7 @@
 Scheduler *Scheduler::instance = 0;
 
 Scheduler::Scheduler() {
+  this->commands = new Array<Command *, MAX_COMMANDS>;
 }
 
 Scheduler *Scheduler::getInstance() {
@@ -13,15 +14,18 @@ Scheduler *Scheduler::getInstance() {
 }
 
 void Scheduler::setup() {
-  commands.clear();
+  commands->clear();
 }
 
 void Scheduler::update() {
-  for (size_t i = 0; i < commands.size(); i++) {
-    Command *command = commands.at(i);
+  for (size_t i = 0; i < commands->size(); i++) {
+    Command *command = commands->at(i);
     if (command->isFinished()) {
       command->end();
-      commands.remove(i);
+      Serial.print("Removing command, ");
+      commands->remove(i);
+      Serial.print("Num commands-> ");
+      Serial.println(commands->size());
     } else {
       command->execute();
     }
@@ -30,16 +34,19 @@ void Scheduler::update() {
 
 void Scheduler::reset() {
   // End all commands
-  for (size_t i = 0; i < commands.size(); i++) {
-    commands.at(i)->end();
+  for (size_t i = 0; i < commands->size(); i++) {
+    commands->at(i)->end();
   }
 
   setup();
 }
 
 void Scheduler::schedule(Command *command) {
-  Serial.println("Scheduling new command");
-  commands.push_back(command);
-  Serial.print("Num commands: ");
-  Serial.println(commands.size());
+  Serial.print("Scheduling new command, ");
+  Serial.print("Num commands->before: ");
+  Serial.print(commands->size());
+  commands->push_back(command);
+  Serial.print(", Num commands->after: ");
+  // Serial.print("Num commands-> ");
+  Serial.println(commands->size());
 }

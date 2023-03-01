@@ -20,5 +20,6 @@ bool WaitCommand::isFinished() {
 }
 
 void WaitCommand::end() {
-
+  Serial.print("Waited for ");
+  Serial.println(duration);
 }
