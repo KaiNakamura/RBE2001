@@ -13,16 +13,18 @@ Scheduler *Scheduler::getInstance() {
 }
 
 void Scheduler::setup() {
-  commands.clear();
+  reset();
 }
 
 void Scheduler::reset() {
   // End all commands
   for (size_t i = 0; i < commands.size(); i++) {
-    commands.at(i)->end();
+    Command *command = commands.at(i);
+    command->end();
+    delete command;
   }
 
-  setup();
+  commands.clear();
 }
 
 void Scheduler::update() {
@@ -31,6 +33,7 @@ void Scheduler::update() {
     if (command->isFinished()) {
       command->end();
       commands.remove(i);
+      delete command;
     } else {
       command->execute();
     }

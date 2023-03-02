@@ -1,6 +1,7 @@
 #include <Romi32U4.h>
 #include "subsystems/robot/Robot.h"
 #include "command/scheduler/Scheduler.h"
+#include "command/remote/Remote.h"
 #include "command/wait-command/WaitCommand.h"
 #include "command/line-sensor/FollowLineCommand.h"
 #include "command/line-sensor/WaitForLineCommand.h"
@@ -10,12 +11,11 @@
 #include "command/parallel-command-group/ParallelCommandGroup.h"
 #include "command/parallel-race-command-group/ParallelRaceCommandGroup.h"
 #include "Constants.h"
-#include <Servo32u4.h>
 
 Scheduler *scheduler;
 Robot *robot;
+Remote *remote;
 
-Romi32U4ButtonA buttonA;
 Romi32U4ButtonB buttonB;
 Romi32U4ButtonC buttonC;
 
@@ -24,38 +24,22 @@ void setup() {
 
   scheduler = Scheduler::getInstance();
   robot = Robot::getInstance();
+  remote = Remote::getInstance();
 
   scheduler->setup();
   robot->setup();
-
-  scheduler->schedule(new ParallelRaceCommandGroup(
-    new SetMotorsCommand(0.25, 0.25),
-    new WaitCommand(1000)
-  ));
-
-  // scheduler->schedule(new SequentialCommandGroup(
-  //   new ParallelRaceCommandGroup(
-  //     new FollowLineCommand(0.1),
-  //     new WaitForLineCommand()
-  //   ),
-  //   new ParallelRaceCommandGroup(
-  //     new SetMotorsCommand(0.25, -0.25),
-  //     new WaitCommand(2000)
-  //   )
-  //   // new BlueMotorMoveToCommand(BlueMotor::ROOF_45_DEGREE_SETPOINT, Units::ROTATIONS)
-  // ));
-
-  while (!buttonC.getSingleDebouncedRelease());
+  remote->setup();
 }
 
 void loop() {
   scheduler->update();
   robot->update();
+  remote->update();
 
   // Emergency stop
-  if (buttonA.getSingleDebouncedPress()) {
-    while (!buttonA.getSingleDebouncedRelease());
+  if (buttonC.getSingleDebouncedPress()) {
+    while (!buttonC.getSingleDebouncedRelease());
     robot->stop();
-    while (!buttonA.getSingleDebouncedPress());
+    while (!buttonC.getSingleDebouncedPress());
   }
 }

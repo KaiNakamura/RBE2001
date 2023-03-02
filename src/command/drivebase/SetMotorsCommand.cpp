@@ -8,7 +8,9 @@ SetMotorsCommand::SetMotorsCommand(double left, double right) {
 }
 
 SetMotorsCommand::SetMotorsCommand(double both) {
-  SetMotorsCommand(both, both);
+  drivebase = Robot::getInstance()->getDrivebase();
+  this->left = both;
+  this->right = both;
 }
 
 void SetMotorsCommand::execute() {

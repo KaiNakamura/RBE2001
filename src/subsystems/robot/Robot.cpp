@@ -20,6 +20,7 @@ void Robot::setup() {
   subsystems.push_back(&linearGripper);
   subsystems.push_back(&ultrasonic);
   subsystems.push_back(&lineSensor);
+  subsystems.push_back(&irSensor);
 
   for (size_t i = 0; i < subsystems.size(); i++) {
     subsystems.at(i)->setup();
@@ -68,4 +69,8 @@ Ultrasonic *Robot::getUltrasonic() {
 
 LineSensor *Robot::getLineSensor() {
   return &lineSensor;
+}
+
+IRSensor *Robot::getIRSensor() {
+  return &irSensor;
 }

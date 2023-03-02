@@ -20,5 +20,4 @@ bool WaitCommand::isFinished() {
 }
 
 void WaitCommand::end() {
-
 }

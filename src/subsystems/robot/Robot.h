@@ -8,6 +8,7 @@
 #include "subsystems/linear-gripper/LinearGripper.h"
 #include "subsystems/ultrasonic/Ultrasonic.h"
 #include "subsystems/line-sensor/LineSensor.h"
+#include "subsystems/ir-sensor/IRSensor.h"
 #include <Array.h>
 
 class Robot: public Subsystem {
@@ -28,9 +29,10 @@ public:
   LinearGripper *getLinearGripper();
   Ultrasonic *getUltrasonic();
   LineSensor *getLineSensor();
+  IRSensor *getIRSensor();
 
 private:
-  static const int NUM_SUBSYSTEMS = 7;
+  static const int NUM_SUBSYSTEMS = 8;
   Array<Subsystem *, NUM_SUBSYSTEMS> subsystems;
   Battery battery;
   Drivebase drivebase;
@@ -39,4 +41,5 @@ private:
   LinearGripper linearGripper;
   Ultrasonic ultrasonic;
   LineSensor lineSensor;
+  IRSensor irSensor;
 };

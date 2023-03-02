@@ -31,6 +31,7 @@ bool ParallelRaceCommandGroup::isFinished() {
     if (command->isFinished()) {
       command->end();
       commands.remove(i);
+      delete command;
       return true;
     }
   }
@@ -44,5 +45,6 @@ void ParallelRaceCommandGroup::end() {
     Command *command = commands.at(i);
     command->end();
     commands.remove(i);
+    delete command;
   }
 }
