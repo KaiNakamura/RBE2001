@@ -29,6 +29,7 @@ bool SequentialCommandGroup::isFinished() {
     if (command->isFinished()) {
       command->end();
       commands.remove(0);
+      delete command;
     }
   }
 
@@ -37,5 +38,11 @@ bool SequentialCommandGroup::isFinished() {
 }
 
 void SequentialCommandGroup::end() {
-
+  // End all commands that haven't finished yet
+  for (size_t i = 0; i < commands.size(); i++) {
+    Command *command = commands.at(i);
+    command->end();
+    commands.remove(i);
+    delete command;
+  }
 }

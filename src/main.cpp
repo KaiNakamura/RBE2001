@@ -27,11 +27,6 @@ void setup() {
   scheduler->setup();
   robot->setup();
 
-  scheduler->schedule(new ParallelRaceCommandGroup(
-    new FollowLineCommand(0.1),
-    new WaitForLineCommand()
-  ));
-
   while (!buttonC.getSingleDebouncedRelease());
 }
 
@@ -40,8 +35,8 @@ void loop() {
   robot->update();
 
   // Emergency stop
-  if (buttonA.getSingleDebouncedPress()) {
-    while (!buttonA.getSingleDebouncedRelease());
+  if (buttonB.getSingleDebouncedPress()) {
+    while (!buttonB.getSingleDebouncedRelease());
     robot->stop();
     while (!buttonA.getSingleDebouncedPress());
   }
