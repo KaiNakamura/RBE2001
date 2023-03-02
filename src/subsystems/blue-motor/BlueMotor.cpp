@@ -27,7 +27,6 @@ void BlueMotor::setup() {
 }
 
 void BlueMotor::update() {
-
 }
 
 void BlueMotor::reset() {

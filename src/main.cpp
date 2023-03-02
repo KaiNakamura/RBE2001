@@ -1,6 +1,7 @@
 #include <Romi32U4.h>
 #include "subsystems/robot/Robot.h"
 #include "command/scheduler/Scheduler.h"
+#include "command/remote/Remote.h"
 #include "command/wait-command/WaitCommand.h"
 #include "command/line-sensor/FollowLineCommand.h"
 #include "command/line-sensor/WaitForLineCommand.h"
@@ -9,12 +10,11 @@
 #include "command/parallel-command-group/ParallelCommandGroup.h"
 #include "command/parallel-race-command-group/ParallelRaceCommandGroup.h"
 #include "Constants.h"
-#include <Servo32u4.h>
 
 Scheduler *scheduler;
 Robot *robot;
+Remote *remote;
 
-Romi32U4ButtonA buttonA;
 Romi32U4ButtonB buttonB;
 Romi32U4ButtonC buttonC;
 
@@ -23,21 +23,22 @@ void setup() {
 
   scheduler = Scheduler::getInstance();
   robot = Robot::getInstance();
+  remote = Remote::getInstance();
 
   scheduler->setup();
   robot->setup();
-
-  while (!buttonC.getSingleDebouncedRelease());
+  remote->setup();
 }
 
 void loop() {
   scheduler->update();
   robot->update();
+  remote->update();
 
   // Emergency stop
-  if (buttonB.getSingleDebouncedPress()) {
-    while (!buttonB.getSingleDebouncedRelease());
+  if (buttonC.getSingleDebouncedPress()) {
+    while (!buttonC.getSingleDebouncedRelease());
     robot->stop();
-    while (!buttonA.getSingleDebouncedPress());
+    while (!buttonC.getSingleDebouncedPress());
   }
 }
