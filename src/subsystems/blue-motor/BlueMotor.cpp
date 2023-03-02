@@ -120,45 +120,7 @@ void BlueMotor::setEffort(double effort, bool clockwise) {
   OCR1C = 400 * constrain(effort, 0, 1);
 }
 
-/**
- * Move to encoder position within the specified tolerance
- * in the header file using proportional control then stop
- */
-bool BlueMotor::moveTo(double target, Units units) {
-  double error = target - getPosition(units);
-  if (toTicks(abs(error), units) < MOVE_TO_TOLERANCE) {
-    setEffort(0);
-    return true;
-  } else {
-    setEffort(MOVE_TO_K_P * error);
-    return false;
-  }
-}
-
-bool BlueMotor::moveToByTicks(double ticks) {
-  return moveTo(ticks, TICKS);
-}
-
-bool BlueMotor::moveToByRotations(double rotations) {
-  return moveTo(rotations, ROTATIONS);
-}
-
-bool BlueMotor::moveToByDegrees(double degrees) {
-  return moveTo(degrees, DEGREES);
-}
-
-void BlueMotor::moveToSetpoint(double setpoint, Units units) {
-  while (!moveTo(setpoint, units));
-}
-
-void BlueMotor::moveToStartingSetpoint() {
-  moveToSetpoint(STARTING_SETPOINT, ROTATIONS);
-}
-
-void BlueMotor::moveToRoof45DegreeSetpoint() {
-  moveToSetpoint(ROOF_45_DEGREE_SETPOINT, ROTATIONS);
-}
-
-void BlueMotor::moveToRoof25DegreeSetpoint() {
-  moveToSetpoint(ROOF_25_DEGREE_SETPOINT, ROTATIONS);
+bool BlueMotor::isAtPosition(double position, Units units) {
+  double error = position - getPosition(units);
+  return toTicks(abs(error), units) < IS_AT_TARGET_TOLERANCE;
 }

@@ -14,14 +14,10 @@ public:
   double getDegrees();
   double getPosition(Units units);
   void setEffort(double effort);
-  bool moveTo(double position, Units units);
-  bool moveToByTicks(double ticks);
-  bool moveToByRotations(double rotations);
-  bool moveToByDegrees(double degrees);
-  void moveToSetpoint(double setpoint, Units units);
-  void moveToStartingSetpoint();
-  void moveToRoof25DegreeSetpoint();
-  void moveToRoof45DegreeSetpoint();
+  bool isAtPosition(double position, Units units);
+  static constexpr double STARTING_SETPOINT = 0; // rotations
+  static constexpr double ROOF_45_DEGREE_SETPOINT = 12; // rotations
+  static constexpr double ROOF_25_DEGREE_SETPOINT = 18; // rotations
 
 private:
   void setEffort(double effort, bool clockwise);
@@ -34,9 +30,5 @@ private:
   static const uint8_t ENCA_PIN = 0;
   static const uint8_t ENCB_PIN = 1;
   static const int ENCODER_RESOLUTION = 540;
-  static const int MOVE_TO_TOLERANCE = 3; // ticks
-  static constexpr double MOVE_TO_K_P = 50;
-  static constexpr double STARTING_SETPOINT = 0; // rotations
-  static constexpr double ROOF_45_DEGREE_SETPOINT = 12; // rotations
-  static constexpr double ROOF_25_DEGREE_SETPOINT = 18; // rotations
+  static const int IS_AT_TARGET_TOLERANCE = 3; // ticks
 };

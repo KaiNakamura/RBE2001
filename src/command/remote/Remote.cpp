@@ -1,9 +1,11 @@
 #include <ir_codes.h>
 #include "subsystems/robot/Robot.h"
+#include "subsystems/blue-motor/BlueMotor.h"
 #include "command/wait-command/WaitCommand.h"
 #include "command/line-sensor/FollowLineCommand.h"
 #include "command/line-sensor/WaitForLineCommand.h"
 #include "command/drivebase/SetMotorsCommand.h"
+#include "command/blue-motor/BlueMotorMoveToCommand.h"
 #include "command/sequential-command-group/SequentialCommandGroup.h"
 #include "command/parallel-command-group/ParallelCommandGroup.h"
 #include "command/parallel-race-command-group/ParallelRaceCommandGroup.h"
@@ -28,6 +30,11 @@ void Remote::setup() {
 
 void Remote::update() {
   int16_t code = irSensor->getCode();
+
+  if (code != -1) {
+    Serial.print("Code: ");
+    Serial.println(code);
+  }
 
   switch (code) {
     case PLAY_PAUSE:
@@ -56,8 +63,6 @@ void Remote::update() {
     case NUM_9:
       break;
     default:
-      Serial.print("Could not find a remote code with value: ");
-      Serial.println(code);
       break;
   }
 }

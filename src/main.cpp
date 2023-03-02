@@ -6,6 +6,7 @@
 #include "command/line-sensor/FollowLineCommand.h"
 #include "command/line-sensor/WaitForLineCommand.h"
 #include "command/drivebase/SetMotorsCommand.h"
+#include "command/blue-motor/BlueMotorMoveToCommand.h"
 #include "command/sequential-command-group/SequentialCommandGroup.h"
 #include "command/parallel-command-group/ParallelCommandGroup.h"
 #include "command/parallel-race-command-group/ParallelRaceCommandGroup.h"
