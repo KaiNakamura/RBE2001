@@ -27,13 +27,21 @@ void BlueMotor::setup() {
 }
 
 void BlueMotor::update() {
-
+  if (isAtTarget()) {
+    setEffort(0);
+  } else {
+    double error = target - getPosition(units);
+    setEffort(MOVE_TO_K_P * error);
+  }
 }
 
 void BlueMotor::reset() {
   noInterrupts();
   count = 0;
   interrupts();
+
+  target = getPosition(ROTATIONS);
+  units = ROTATIONS;
 }
 
 void BlueMotor::isrA() {
@@ -121,45 +129,40 @@ void BlueMotor::setEffort(double effort, bool clockwise) {
   OCR1C = 400 * constrain(effort, 0, 1);
 }
 
+bool BlueMotor::isAtTarget() {
+  double error = target - getPosition(units);
+  return toTicks(abs(error), units) < IS_AT_TARGET_TOLERANCE;
+}
+
 /**
  * Move to encoder position within the specified tolerance
  * in the header file using proportional control then stop
  */
-bool BlueMotor::moveTo(double target, Units units) {
-  double error = target - getPosition(units);
-  if (toTicks(abs(error), units) < MOVE_TO_TOLERANCE) {
-    setEffort(0);
-    return true;
-  } else {
-    setEffort(MOVE_TO_K_P * error);
-    return false;
-  }
+void BlueMotor::moveTo(double target, Units units) {
+  this->target = target;
+  this->units = units;
 }
 
-bool BlueMotor::moveToByTicks(double ticks) {
-  return moveTo(ticks, TICKS);
+void BlueMotor::moveToByTicks(double ticks) {
+  moveTo(ticks, TICKS);
 }
 
-bool BlueMotor::moveToByRotations(double rotations) {
-  return moveTo(rotations, ROTATIONS);
+void BlueMotor::moveToByRotations(double rotations) {
+  moveTo(rotations, ROTATIONS);
 }
 
-bool BlueMotor::moveToByDegrees(double degrees) {
-  return moveTo(degrees, DEGREES);
-}
-
-void BlueMotor::moveToSetpoint(double setpoint, Units units) {
-  while (!moveTo(setpoint, units));
+void BlueMotor::moveToByDegrees(double degrees) {
+  moveTo(degrees, DEGREES);
 }
 
 void BlueMotor::moveToStartingSetpoint() {
-  moveToSetpoint(STARTING_SETPOINT, ROTATIONS);
+  moveTo(STARTING_SETPOINT, ROTATIONS);
 }
 
 void BlueMotor::moveToRoof45DegreeSetpoint() {
-  moveToSetpoint(ROOF_45_DEGREE_SETPOINT, ROTATIONS);
+  moveTo(ROOF_45_DEGREE_SETPOINT, ROTATIONS);
 }
 
 void BlueMotor::moveToRoof25DegreeSetpoint() {
-  moveToSetpoint(ROOF_25_DEGREE_SETPOINT, ROTATIONS);
+  moveTo(ROOF_25_DEGREE_SETPOINT, ROTATIONS);
 }
