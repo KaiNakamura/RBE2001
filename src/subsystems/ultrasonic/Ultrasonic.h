@@ -13,5 +13,5 @@ public:
 
 private:
   static const uint8_t TRIG_PIN = 12;
-  static const uint8_t ECHO_PIN = 0;
+  static const uint8_t ECHO_PIN = 2;
 };
