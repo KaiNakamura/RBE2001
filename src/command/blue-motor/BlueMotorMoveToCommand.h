@@ -7,6 +7,7 @@
 class BlueMotorMoveToCommand: public Command {
   public:
     BlueMotorMoveToCommand(double setpoint, Units units);
+    BlueMotorMoveToCommand(double rotations);
     void execute();
     bool isFinished();
     void end();
@@ -14,4 +15,5 @@ class BlueMotorMoveToCommand: public Command {
     BlueMotor *blueMotor;
     double setpoint;
     Units units;
+    static constexpr double K_P = 50;
 };

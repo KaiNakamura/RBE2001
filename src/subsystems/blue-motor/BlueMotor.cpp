@@ -27,21 +27,12 @@ void BlueMotor::setup() {
 }
 
 void BlueMotor::update() {
-  if (isAtTarget()) {
-    setEffort(0);
-  } else {
-    double error = target - getPosition(units);
-    setEffort(MOVE_TO_K_P * error);
-  }
 }
 
 void BlueMotor::reset() {
   noInterrupts();
   count = 0;
   interrupts();
-
-  target = getPosition(ROTATIONS);
-  units = ROTATIONS;
 }
 
 void BlueMotor::isrA() {
@@ -129,40 +120,7 @@ void BlueMotor::setEffort(double effort, bool clockwise) {
   OCR1C = 400 * constrain(effort, 0, 1);
 }
 
-bool BlueMotor::isAtTarget() {
-  double error = target - getPosition(units);
+bool BlueMotor::isAtPosition(double position, Units units) {
+  double error = position - getPosition(units);
   return toTicks(abs(error), units) < IS_AT_TARGET_TOLERANCE;
-}
-
-/**
- * Move to encoder position within the specified tolerance
- * in the header file using proportional control then stop
- */
-void BlueMotor::moveTo(double target, Units units) {
-  this->target = target;
-  this->units = units;
-}
-
-void BlueMotor::moveToByTicks(double ticks) {
-  moveTo(ticks, TICKS);
-}
-
-void BlueMotor::moveToByRotations(double rotations) {
-  moveTo(rotations, ROTATIONS);
-}
-
-void BlueMotor::moveToByDegrees(double degrees) {
-  moveTo(degrees, DEGREES);
-}
-
-void BlueMotor::moveToStartingSetpoint() {
-  moveTo(STARTING_SETPOINT, ROTATIONS);
-}
-
-void BlueMotor::moveToRoof45DegreeSetpoint() {
-  moveTo(ROOF_45_DEGREE_SETPOINT, ROTATIONS);
-}
-
-void BlueMotor::moveToRoof25DegreeSetpoint() {
-  moveTo(ROOF_25_DEGREE_SETPOINT, ROTATIONS);
 }

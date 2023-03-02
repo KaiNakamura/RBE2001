@@ -14,14 +14,7 @@ public:
   double getDegrees();
   double getPosition(Units units);
   void setEffort(double effort);
-  bool isAtTarget();
-  void moveTo(double position, Units units);
-  void moveToByTicks(double ticks);
-  void moveToByRotations(double rotations);
-  void moveToByDegrees(double degrees);
-  void moveToStartingSetpoint();
-  void moveToRoof25DegreeSetpoint();
-  void moveToRoof45DegreeSetpoint();
+  bool isAtPosition(double position, Units units);
   static constexpr double STARTING_SETPOINT = 0; // rotations
   static constexpr double ROOF_45_DEGREE_SETPOINT = 12; // rotations
   static constexpr double ROOF_25_DEGREE_SETPOINT = 18; // rotations
@@ -38,7 +31,4 @@ private:
   static const uint8_t ENCB_PIN = 1;
   static const int ENCODER_RESOLUTION = 540;
   static const int IS_AT_TARGET_TOLERANCE = 3; // ticks
-  static constexpr double MOVE_TO_K_P = 50;
-  double target;
-  Units units;
 };

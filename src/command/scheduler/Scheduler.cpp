@@ -32,8 +32,11 @@ void Scheduler::update() {
     Command *command = commands.at(i);
     if (command->isFinished()) {
       command->end();
+      Serial.print("Removing command, ");
       commands.remove(i);
       delete command;
+      Serial.print("num commands: ");
+      Serial.println(commands.size());
     } else {
       command->execute();
     }
@@ -41,5 +44,8 @@ void Scheduler::update() {
 }
 
 void Scheduler::schedule(Command *command) {
+  Serial.print("Scheduling command, ");
   commands.push_back(command);
+  Serial.print("num commands: ");
+  Serial.println(commands.size());
 }

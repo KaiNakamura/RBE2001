@@ -7,13 +7,21 @@ BlueMotorMoveToCommand::BlueMotorMoveToCommand(double setpoint, Units units) {
   this->units = units;
 }
 
+BlueMotorMoveToCommand::BlueMotorMoveToCommand(double rotations) {
+  blueMotor = Robot::getInstance()->getBlueMotor();
+  this->setpoint = rotations;
+  this->units = ROTATIONS;
+}
+
 void BlueMotorMoveToCommand::execute() {
-  blueMotor->moveTo(setpoint, units);
+  double error = setpoint - blueMotor->getPosition(units);
+  blueMotor->setEffort(K_P * error);
 }
 
 bool BlueMotorMoveToCommand::isFinished() {
-  return blueMotor->isAtTarget();
+  return blueMotor->isAtPosition(setpoint, units);
 }
 
 void BlueMotorMoveToCommand::end() {
+  blueMotor->setEffort(0);
 }
