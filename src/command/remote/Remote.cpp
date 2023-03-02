@@ -5,6 +5,7 @@
 #include "command/line-sensor/FollowLineCommand.h"
 #include "command/line-sensor/WaitForLineCommand.h"
 #include "command/drivebase/SetMotorsCommand.h"
+#include "command/drivebase/TurnAngleCommand.h"
 #include "command/blue-motor/BlueMotorMoveToCommand.h"
 #include "command/sequential-command-group/SequentialCommandGroup.h"
 #include "command/parallel-command-group/ParallelCommandGroup.h"
@@ -45,8 +46,10 @@ void Remote::update() {
     case NUM_0_10:
       break;
     case NUM_1:
+      scheduler->schedule(new TurnAngleCommand(90, 0.1));
       break;
     case NUM_2:
+      scheduler->schedule(new TurnAngleCommand(-90, 0.1));
       break;
     case NUM_3:
       break;

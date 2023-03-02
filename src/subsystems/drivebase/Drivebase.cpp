@@ -24,3 +24,19 @@ void Drivebase::setMotors(double left, double right) {
 void Drivebase::stop() {
   chassis.idle();
 }
+
+double Drivebase::getLeftPosition() {
+  return chassis.getLeftEncoderCount() * CM_PER_TICK;
+}
+
+double Drivebase::getRightPosition() {
+  return chassis.getRightEncoderCount() * CM_PER_TICK;
+}
+
+double Drivebase::getLeftRotations() {
+  return chassis.getLeftEncoderCount() / TICKS_PER_REVOLUTION;
+}
+
+double Drivebase::getRightRotations() {
+  return chassis.getRightEncoderCount() / TICKS_PER_REVOLUTION;
+}
