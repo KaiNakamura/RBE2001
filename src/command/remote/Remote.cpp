@@ -29,11 +29,6 @@ void Remote::setup() {
 void Remote::update() {
   int16_t code = irSensor->getCode();
 
-  if (code != -1) {
-    Serial.print("Code: ");
-    Serial.println(code);
-  }
-
   switch (code) {
     case PLAY_PAUSE:
       break;
@@ -43,38 +38,14 @@ void Remote::update() {
     case NUM_0_10:
       break;
     case NUM_1:
-      Serial.println("NUM_1");
-      scheduler->schedule(new WaitCommand(1000));
       break;
     case NUM_2:
-      Serial.println("NUM_2");
-      scheduler->schedule(new SequentialCommandGroup(
-        new WaitCommand(1000),
-        new WaitCommand(2000)
-      ));
       break;
     case NUM_3:
-      Serial.println("NUM_3");
-      scheduler->schedule(new ParallelCommandGroup(
-        new WaitCommand(1000),
-        new WaitCommand(2000)
-      ));
       break;
     case NUM_4:
-      Serial.println("NUM_4");
-      scheduler->schedule(new WaitCommand(1000));
-      scheduler->schedule(new WaitCommand(1000));
       break;
     case NUM_5:
-      Serial.println("NUM_5");
-      scheduler->schedule(new SequentialCommandGroup(
-        new WaitCommand(1000),
-        new WaitCommand(2000)
-      ));
-      scheduler->schedule(new SequentialCommandGroup(
-        new WaitCommand(1000),
-        new WaitCommand(2000)
-      ));
       break;
     case NUM_6:
       break;
@@ -85,6 +56,8 @@ void Remote::update() {
     case NUM_9:
       break;
     default:
+      Serial.print("Could not find a remote code with value: ");
+      Serial.println(code);
       break;
   }
 }

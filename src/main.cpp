@@ -41,13 +41,4 @@ void loop() {
     robot->stop();
     while (!buttonC.getSingleDebouncedPress());
   }
-
-  if (buttonB.getSingleDebouncedPress()) {
-    while (!buttonB.getSingleDebouncedRelease());
-    Serial.println("Button B pressed, scheduling command");
-    scheduler->schedule(new SequentialCommandGroup(
-      new WaitCommand(1000),
-      new WaitCommand(2000)
-    ));
-  }
 }
