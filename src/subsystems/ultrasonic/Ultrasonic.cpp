@@ -9,7 +9,6 @@ void Ultrasonic::setup() {
 }
 
 void Ultrasonic::update() {
-  // Serial.println(getDistance());
 }
 
 void Ultrasonic::reset() {

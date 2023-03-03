@@ -11,7 +11,7 @@ class FollowLineCommand: public Command {
     bool isFinished();
     void end();
   private:
-    static constexpr double K_P = 0.15;
+    static constexpr double K_P = 0.1;
     Drivebase *drivebase;
     LineSensor *lineSensor;
     double speed;

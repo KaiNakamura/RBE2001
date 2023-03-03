@@ -41,6 +41,7 @@ void Robot::reset() {
 
 void Robot::stop() {
   drivebase.stop();
+  blueMotor.setEffort(0);
 }
 
 Battery *Robot::getBattery() {
