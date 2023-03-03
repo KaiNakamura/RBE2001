@@ -13,8 +13,11 @@ public:
   void setup();
   void update();
   void reset();
+  int16_t getCode();
+  bool isPaused();
 
 private:
   Scheduler *scheduler;
   IRSensor *irSensor;
+  bool paused;
 };

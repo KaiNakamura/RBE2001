@@ -17,7 +17,7 @@ void Robot::setup() {
   subsystems.push_back(&drivebase);
   subsystems.push_back(&blueMotor);
   subsystems.push_back(&clawGripper);
-  subsystems.push_back(&linearGripper);
+  // subsystems.push_back(&linearGripper);
   subsystems.push_back(&ultrasonic);
   subsystems.push_back(&lineSensor);
   subsystems.push_back(&irSensor);
@@ -41,6 +41,7 @@ void Robot::reset() {
 
 void Robot::stop() {
   drivebase.stop();
+  blueMotor.setEffort(0);
 }
 
 Battery *Robot::getBattery() {
