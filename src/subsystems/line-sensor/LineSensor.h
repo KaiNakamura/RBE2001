@@ -15,12 +15,12 @@ public:
 
 private:
   static double lerp(double value, double min, double max);
-  static const uint8_t LEFT_PIN = A3;
-  static const uint8_t RIGHT_PIN = A1;
-  static const int LEFT_WHITE = 75;
-  static const int LEFT_BLACK = 940;
-  static const int RIGHT_WHITE = 425;
-  static const int RIGHT_BLACK = 585;
+  static const uint8_t LEFT_PIN = A1;
+  static const uint8_t RIGHT_PIN = A3;
+  static const int LEFT_WHITE = 474;
+  static const int LEFT_BLACK = 587;
+  static const int RIGHT_WHITE = 42;
+  static const int RIGHT_BLACK = 820;
   static const int MAX_NUM_READS = 10;
   int numReads;
   long lastTime;

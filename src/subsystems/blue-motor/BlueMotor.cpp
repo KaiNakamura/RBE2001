@@ -27,6 +27,8 @@ void BlueMotor::setup() {
 }
 
 void BlueMotor::update() {
+  // Serial.print("Position: ");
+  // Serial.println(getPosition(ROTATIONS));
 }
 
 void BlueMotor::reset() {

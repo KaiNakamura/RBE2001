@@ -33,6 +33,11 @@ void LinearGripper::update() {
       servo.writeMicroseconds(SERVO_STOP);
       break;
   }
+
+  // Serial.print("Position: ");
+  // Serial.print(getPosition());
+  // Serial.print(", State: ");
+  // Serial.println(state);
 }
 
 void LinearGripper::reset() {
