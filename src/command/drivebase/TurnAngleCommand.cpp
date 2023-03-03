@@ -6,9 +6,6 @@ TurnAngleCommand::TurnAngleCommand(double angle, double speed) {
   this->angle = angle;
   this->speed = speed;
   this->effort = angle > 0 ? fabs(speed) : -fabs(speed);
-  this->start = drivebase->getLeftRotations();
-  double targetDistance = (fabs(angle) / 360) * Drivebase::WHEEL_TRACK / Drivebase::WHEEL_DIAMETER;
-  this->target = angle > 0 ? start + targetDistance : start - targetDistance;
 }
 
 void TurnAngleCommand::execute() {
@@ -16,6 +13,13 @@ void TurnAngleCommand::execute() {
 }
 
 bool TurnAngleCommand::isFinished() {
+  if (!hasStarted) {
+    hasStarted = true;
+    this->start = drivebase->getLeftRotations();
+    double targetDistance = (fabs(angle) / 360) * Drivebase::WHEEL_TRACK / Drivebase::WHEEL_DIAMETER;
+    this->target = angle > 0 ? start + targetDistance : start - targetDistance;
+  }
+
   double rotations = drivebase->getLeftRotations();
   return (angle > 0) ? rotations > target : rotations < target;
 }

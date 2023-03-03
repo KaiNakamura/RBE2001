@@ -3,14 +3,14 @@
 #include "subsystems/drivebase/Drivebase.h"
 #include "command/Command.h"
 
-class TurnAngleCommand: public Command {
+class DriveStraightCommand: public Command {
   public:
-    TurnAngleCommand(double angle, double speed);
+    DriveStraightCommand(double distance, double speed);
     void execute();
     bool isFinished();
     void end();
   private:
     Drivebase *drivebase;
-    double angle, speed, start, target, effort;
+    double distance, speed, start, target;
     bool hasStarted = false;
 };

@@ -8,13 +8,14 @@ Drivebase::Drivebase() {
 }
 
 void Drivebase::setup() {
-  chassis.init();
+  reset();
 }
 
 void Drivebase::update() {
 }
 
 void Drivebase::reset() {
+  chassis.init();
 }
 
 void Drivebase::setMotors(double left, double right) {

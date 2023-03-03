@@ -6,7 +6,6 @@ SequentialCommandGroup::SequentialCommandGroup(Command *commands[], size_t numCo
   }
 }
 
-// TODO: Find a way to do constructors with arbitrarily long commands
 SequentialCommandGroup::SequentialCommandGroup(Command *command1, Command *command2) {
   this->commands.push_back(command1);
   this->commands.push_back(command2);
@@ -16,6 +15,51 @@ SequentialCommandGroup::SequentialCommandGroup(Command *command1, Command *comma
   this->commands.push_back(command1);
   this->commands.push_back(command2);
   this->commands.push_back(command3);
+}
+
+SequentialCommandGroup::SequentialCommandGroup(Command *command1, Command *command2, Command *command3, Command *command4) {
+  this->commands.push_back(command1);
+  this->commands.push_back(command2);
+  this->commands.push_back(command3);
+  this->commands.push_back(command4);
+}
+
+SequentialCommandGroup::SequentialCommandGroup(Command *command1, Command *command2, Command *command3, Command *command4, Command *command5) {
+  this->commands.push_back(command1);
+  this->commands.push_back(command2);
+  this->commands.push_back(command3);
+  this->commands.push_back(command4);
+  this->commands.push_back(command5);
+}
+
+SequentialCommandGroup::SequentialCommandGroup(Command *command1, Command *command2, Command *command3, Command *command4, Command *command5, Command *command6) {
+  this->commands.push_back(command1);
+  this->commands.push_back(command2);
+  this->commands.push_back(command3);
+  this->commands.push_back(command4);
+  this->commands.push_back(command5);
+  this->commands.push_back(command6);
+}
+
+SequentialCommandGroup::SequentialCommandGroup(Command *command1, Command *command2, Command *command3, Command *command4, Command *command5, Command *command6, Command *command7) {
+  this->commands.push_back(command1);
+  this->commands.push_back(command2);
+  this->commands.push_back(command3);
+  this->commands.push_back(command4);
+  this->commands.push_back(command5);
+  this->commands.push_back(command6);
+  this->commands.push_back(command7);
+}
+
+SequentialCommandGroup::SequentialCommandGroup(Command *command1, Command *command2, Command *command3, Command *command4, Command *command5, Command *command6, Command *command7, Command *command8) {
+  this->commands.push_back(command1);
+  this->commands.push_back(command2);
+  this->commands.push_back(command3);
+  this->commands.push_back(command4);
+  this->commands.push_back(command5);
+  this->commands.push_back(command6);
+  this->commands.push_back(command7);
+  this->commands.push_back(command8);
 }
 
 void SequentialCommandGroup::execute() {
