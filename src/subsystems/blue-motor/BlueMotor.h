@@ -17,10 +17,10 @@ public:
   bool isAtPosition(double position, Units units);
   static constexpr double STARTING_SETPOINT = 0; // rotations
   static constexpr double STAGING_PLATFORM = 3; // rotations
-  static constexpr double ROOF_45_DEGREE_SETPOINT = 12.5; // rotations
-  static constexpr double PICKUP_ROOF_25_DEGREE_SETPOINT = 12.5; // rotations
-  static constexpr double ABOVE_ROOF_25_DEGREE_SETPOINT = 16.5; // rotations
-  static constexpr double PLACE_ROOF_25_DEGREE_SETPOINT = 18; // rotations
+  static constexpr double ROOF_45_DEGREE_SETPOINT = 13; // rotations
+  static constexpr double PICKUP_ROOF_25_DEGREE_SETPOINT = 13; // rotations
+  static constexpr double ABOVE_ROOF_25_DEGREE_SETPOINT = 17; // rotations
+  static constexpr double PLACE_ROOF_25_DEGREE_SETPOINT = 18.5; // rotations
   static constexpr double MAX_HEIGHT = 19.5; // rotations
 
 private:

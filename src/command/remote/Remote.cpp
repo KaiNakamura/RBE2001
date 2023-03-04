@@ -82,6 +82,14 @@ void Remote::update() {
       Serial.println("NUM_1");
       // Move to and grab old solar panel from the 25 degree roof
       scheduler->schedule(new SequentialCommandGroup(
+        new SequentialCommandGroup(
+          new ParallelRaceCommandGroup(
+            new FollowLineCommand(0.1),
+            new WaitForLineCommand()
+          ),
+          new DriveStraightCommand(6, 0.1),
+          new TurnAngleCommand(90, 0.1)
+        ),
         new OpenClawGripperCommand(),
         new BlueMotorMoveToCommand(BlueMotor::PICKUP_ROOF_25_DEGREE_SETPOINT),
         new ParallelRaceCommandGroup(
@@ -161,7 +169,7 @@ void Remote::update() {
           new TurnAngleCommand(90, 0.1),
           new ParallelRaceCommandGroup(
             new FollowLineCommand(0.1),
-            new WaitForDistanceCommand(17)
+            new WaitForDistanceCommand(18)
           ),
           new ParallelRaceCommandGroup(
             new FollowLineCommand(0.1),
@@ -179,11 +187,37 @@ void Remote::update() {
       Serial.println("NUM_6");
       // Release new solar panel
       scheduler->schedule(new SequentialCommandGroup(
+          new BlueMotorMoveToCommand(BlueMotor::PLACE_ROOF_25_DEGREE_SETPOINT),
           new OpenClawGripperCommand(),
-          new DriveStraightCommand(6, -0.1)
+          new DriveStraightCommand(3, -0.1),
+          new TurnAngleCommand(160, 0.08)
       ));
       break;
     case NUM_7:
+      Serial.println("NUM_7");
+      // Cross to other side of the field
+      scheduler->schedule(new SequentialCommandGroup(
+        new SequentialCommandGroup(
+          new BlueMotorMoveToCommand(BlueMotor::STAGING_PLATFORM),
+          new ParallelRaceCommandGroup(
+            new FollowLineCommand(0.1),
+            new WaitForLineCommand()
+          ),
+          new DriveStraightCommand(6, 0.1),
+          new TurnAngleCommand(-75, 0.1),
+          new ParallelRaceCommandGroup(
+            new FollowLineCommand(0.1),
+            new WaitForDistanceCommand(6)
+          ),
+          new TurnAngleCommand(-85, 0.08)
+        ),
+        new ParallelRaceCommandGroup(
+          new SetMotorsCommand(0.1, 0.102),
+          new WaitForLineCommand()
+        ),
+        new DriveStraightCommand(6, 0.1),
+        new TurnAngleCommand(-90, 0.1)
+      ));
       break;
     case NUM_8:
       break;

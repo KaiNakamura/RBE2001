@@ -10,6 +10,6 @@ class WaitForLineCommand: public Command {
     bool isFinished();
     void end();
   private:
-    static constexpr double IS_ON_LINE_THRESHOLD = 0.9;
+    static constexpr double IS_ON_LINE_THRESHOLD = 0.85;
     LineSensor *lineSensor;
 };
