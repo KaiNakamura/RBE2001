@@ -13,7 +13,7 @@ Robot *Robot::getInstance() {
 }
 
 void Robot::setup() {
-  subsystems.push_back(&battery);
+  // subsystems.push_back(&battery);
   subsystems.push_back(&drivebase);
   subsystems.push_back(&blueMotor);
   // subsystems.push_back(&clawGripper);
@@ -42,11 +42,12 @@ void Robot::reset() {
 void Robot::stop() {
   drivebase.stop();
   blueMotor.setEffort(0);
+  linearGripper.stop();
 }
 
-Battery *Robot::getBattery() {
-  return &battery;
-}
+// Battery *Robot::getBattery() {
+//   return &battery;
+// }
 
 Drivebase *Robot::getDrivebase() {
   return &drivebase;
@@ -54,10 +55,6 @@ Drivebase *Robot::getDrivebase() {
 
 BlueMotor *Robot::getBlueMotor() {
   return &blueMotor;
-}
-
-ClawGripper *Robot::getClawGripper() {
-  return &clawGripper;
 }
 
 LinearGripper *Robot::getLinearGripper() {

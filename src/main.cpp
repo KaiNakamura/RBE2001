@@ -35,6 +35,12 @@ void setup() {
 void loop() {
   remote->update();
 
+  // Serial.println(robot->getUltrasonic()->getDistance());
+  // Serial.print(robot->getLineSensor()->getLeftValue());
+  // Serial.print(", ");
+  // Serial.println(robot->getLineSensor()->getRightValue());
+  // Serial.println(robot->getUltrasonic()->getDistance());
+
   // Pausing
   if (remote->isPaused()) {
     robot->stop();

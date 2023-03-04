@@ -86,6 +86,18 @@ bool LinearGripper::isClosed() {
   return isAtPosition(CLOSED_POSITION);
 }
 
+bool LinearGripper::isInOpenState() {
+  return state == OPEN;
+}
+
+bool LinearGripper::isInClosedState() {
+  return state == CLOSED;
+}
+
+void LinearGripper::stop() {
+  servo.writeMicroseconds(SERVO_STOP);
+}
+
 bool LinearGripper::isStuck() {
   long elapsed = millis() - lastTime;
   if (elapsed > DISTANCE_COVERED_TIME_FRAME) {

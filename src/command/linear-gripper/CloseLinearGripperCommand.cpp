@@ -6,12 +6,16 @@ CloseLinearGripperCommand::CloseLinearGripperCommand() {
 }
 
 void CloseLinearGripperCommand::execute() {
+  // Serial.println("CloseLinearGripperCommand");
+  if (!hasStarted) {
+    hasStarted = true;
+    linearGripper->close();
+  }
 }
 
 bool CloseLinearGripperCommand::isFinished() {
-  return true;
+  return linearGripper->isInClosedState();
 }
 
 void CloseLinearGripperCommand::end() {
-  linearGripper->close();
 }

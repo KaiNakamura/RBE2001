@@ -8,7 +8,8 @@ WaitForDistanceCommand::WaitForDistanceCommand(double distance) {
 }
 
 void WaitForDistanceCommand::execute() {
-  if (ultrasonic->getDistance() < distance) {
+  double reading = ultrasonic->getDistance();
+  if (reading > 0 && reading < distance) {
     numReadings++;
   }
 }

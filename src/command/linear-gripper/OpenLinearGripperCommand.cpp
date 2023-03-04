@@ -6,12 +6,15 @@ OpenLinearGripperCommand::OpenLinearGripperCommand() {
 }
 
 void OpenLinearGripperCommand::execute() {
+  if (!hasStarted) {
+    hasStarted = true;
+    linearGripper->open();
+  }
 }
 
 bool OpenLinearGripperCommand::isFinished() {
-  return true;
+  return linearGripper->isInOpenState();
 }
 
 void OpenLinearGripperCommand::end() {
-  linearGripper->open();
 }

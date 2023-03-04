@@ -14,6 +14,9 @@ public:
   void open();
   void close();
   int getPosition();
+  bool isInOpenState();
+  bool isInClosedState();
+  void stop();
 
 private:
   static const uint8_t POTENTIOMETER_PIN = A0;
@@ -21,7 +24,8 @@ private:
   static const int SERVO_CLOSE = 2000; // us
   static const int SERVO_STOP = 1490; // us
   static const int OPEN_POSITION = 700; // ticks
-  static const int CLOSED_POSITION = 200; // ticks
+  // static const int OPEN_POSITION = 200; // ticks
+  static const int CLOSED_POSITION = 100; // ticks
   static const int IS_AT_POSITION_TOLERANCE = 2; // ticks
   static const int MIN_DISTANCE_COVERED_BEFORE_STUCK = 3; // ticks
   static const int SERVO_ACCELERATION_TIME = 2000; // ms
@@ -35,7 +39,7 @@ private:
   int distanceCovered;
   int numFailedMovements;
   bool isAtPosition(int position);
+  bool isStuck();
   bool isOpen();
   bool isClosed();
-  bool isStuck();
 };

@@ -1,10 +1,8 @@
 #pragma once
 
 #include "subsystems/Subsystem.h"
-#include "subsystems/battery/Battery.h"
 #include "subsystems/drivebase/Drivebase.h"
 #include "subsystems/blue-motor/BlueMotor.h"
-#include "subsystems/claw-gripper/ClawGripper.h"
 #include "subsystems/linear-gripper/LinearGripper.h"
 #include "subsystems/ultrasonic/Ultrasonic.h"
 #include "subsystems/line-sensor/LineSensor.h"
@@ -22,22 +20,22 @@ public:
   void update();
   void reset();
   void stop();
-  Battery *getBattery();
+  // Battery *getBattery();
   Drivebase *getDrivebase();
   BlueMotor *getBlueMotor();
-  ClawGripper *getClawGripper();
+  // ClawGripper *getClawGripper();
   LinearGripper *getLinearGripper();
   Ultrasonic *getUltrasonic();
   LineSensor *getLineSensor();
   IRSensor *getIRSensor();
 
 private:
-  static const int NUM_SUBSYSTEMS = 8;
+  static const int NUM_SUBSYSTEMS = 6;
   Array<Subsystem *, NUM_SUBSYSTEMS> subsystems;
-  Battery battery;
+  // Battery battery;
   Drivebase drivebase;
   BlueMotor blueMotor;
-  ClawGripper clawGripper;
+  // ClawGripper clawGripper;
   LinearGripper linearGripper;
   Ultrasonic ultrasonic;
   LineSensor lineSensor;

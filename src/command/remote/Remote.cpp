@@ -10,13 +10,12 @@
 #include "command/drivebase/TurnAngleCommand.h"
 #include "command/blue-motor/BlueMotorMoveToCommand.h"
 #include "command/blue-motor/BlueMotorSetEffortCommand.h"
-#include "command/claw-gripper/CloseClawGripperCommand.h"
-#include "command/claw-gripper/OpenClawGripperCommand.h"
 #include "command/linear-gripper/CloseLinearGripperCommand.h"
 #include "command/linear-gripper/OpenLinearGripperCommand.h"
 #include "command/sequential-command-group/SequentialCommandGroup.h"
 #include "command/parallel-command-group/ParallelCommandGroup.h"
 #include "command/parallel-race-command-group/ParallelRaceCommandGroup.h"
+#include "command/parallel-race-command-group/ParallelRaceCommandGroup2.h"
 #include "Remote.h"
 
 Remote *Remote::instance = 0;
@@ -47,6 +46,7 @@ void Remote::update() {
 
   switch (code) {
     case PLAY_PAUSE:
+      Serial.println("PLAY_PAUSE");
       paused = !paused;
       break;
     case STOP_MODE:
@@ -58,14 +58,14 @@ void Remote::update() {
       break;
     case UP_ARROW:
       Serial.println("UP_ARROW");
-      scheduler->schedule(new ParallelRaceCommandGroup(
+      scheduler->schedule(new ParallelRaceCommandGroup2(
         new BlueMotorSetEffortCommand(1),
         new WaitCommand(250)
       ));
       break;
     case DOWN_ARROW:
       Serial.println("DOWN_ARROW");
-      scheduler->schedule(new ParallelRaceCommandGroup(
+      scheduler->schedule(new ParallelRaceCommandGroup2(
         new BlueMotorSetEffortCommand(-1),
         new WaitCommand(250)
       ));
@@ -84,17 +84,24 @@ void Remote::update() {
       Serial.println("NUM_1");
       // Move to and grab old solar panel from the 45 degree roof
       scheduler->schedule(new SequentialCommandGroup(
+        new SequentialCommandGroup(
+          new ParallelRaceCommandGroup2(
+            new FollowLineCommand(0.125),
+            new WaitForLineCommand()
+          ),
+          new DriveStraightCommand(6, 0.125),
+          new TurnAngleCommand(-75, 0.125)
+        ),
         new OpenLinearGripperCommand(),
-        new BlueMotorMoveToCommand(BlueMotor::PICKUP_ROOF_45_DEGREE_SETPOINT),
-        new ParallelRaceCommandGroup(
-          new FollowLineCommand(0.1),
+        new BlueMotorMoveToCommand(BlueMotor::ROOF_45_DEGREE_SETPOINT),
+        new ParallelRaceCommandGroup2(
+          new FollowLineCommand(0.125),
           new WaitForDistanceCommand(14)
         ),
-        new ParallelRaceCommandGroup(
-          new SetMotorsCommand(0.1),
+        new ParallelRaceCommandGroup2(
+          new SetMotorsCommand(0.15),
           new WaitCommand(500)
         ),
-        new WaitCommand(500),
         new CloseLinearGripperCommand()
       ));
       break;
@@ -104,19 +111,20 @@ void Remote::update() {
       scheduler->schedule(new SequentialCommandGroup(
         new CloseLinearGripperCommand(),
         new BlueMotorMoveToCommand(BlueMotor::MAX_HEIGHT),
-        new DriveStraightCommand(2, -0.1),
-        new TurnAngleCommand(180, 0.1),
-        new ParallelRaceCommandGroup(
-          new FollowLineCommand(0.1),
+        new DriveStraightCommand(2, -0.125),
+        new TurnAngleCommand(180, 0.125),
+        new ParallelRaceCommandGroup2(
+          new FollowLineCommand(0.125),
           new WaitForLineCommand()
         ),
-        new DriveStraightCommand(6, 0.1),
+        new DriveStraightCommand(7, 0.125),
         new SequentialCommandGroup(
-          new TurnAngleCommand(90, 0.1),
-          new ParallelRaceCommandGroup(
-            new FollowLineCommand(0.1),
+          new TurnAngleCommand(90, 0.125),
+          new ParallelRaceCommandGroup2(
+            new FollowLineCommand(0.125),
             new WaitForDistanceCommand(7)
           ),
+          new DriveStraightCommand(3, -0.125),
           new BlueMotorMoveToCommand(BlueMotor::STAGING_PLATFORM)
         )
       ));
@@ -126,7 +134,7 @@ void Remote::update() {
       // Release old solar panel
       scheduler->schedule(new SequentialCommandGroup(
           new OpenLinearGripperCommand(),
-          new DriveStraightCommand(10, -0.1)
+          new DriveStraightCommand(10, -0.15)
       ));
       break;
     case NUM_4:
@@ -135,13 +143,9 @@ void Remote::update() {
       scheduler->schedule(new SequentialCommandGroup(
           new OpenLinearGripperCommand(),
           new BlueMotorMoveToCommand(BlueMotor::STAGING_PLATFORM),
-          new ParallelRaceCommandGroup(
-            new FollowLineCommand(0.1),
-            new WaitForDistanceCommand(6)
-          ),
-          new ParallelRaceCommandGroup(
-            new SetMotorsCommand(0.1),
-            new WaitCommand(500)
+          new ParallelRaceCommandGroup2(
+            new SetMotorsCommand(0.15),
+            new WaitCommand(3000)
           ),
           new CloseLinearGripperCommand()
       ));
@@ -150,31 +154,23 @@ void Remote::update() {
       Serial.println("NUM_5");
       // Take new solar panel to 45 degree roof
       scheduler->schedule(new SequentialCommandGroup(
-        new CloseLinearGripperCommand(),
-        new DriveStraightCommand(2, -0.1),
         new BlueMotorMoveToCommand(BlueMotor::MAX_HEIGHT),
-        new TurnAngleCommand(180, 0.1),
-        new ParallelRaceCommandGroup(
-          new FollowLineCommand(0.1),
+        new TurnAngleCommand(180, 0.125),
+        new ParallelRaceCommandGroup2(
+          new FollowLineCommand(0.125),
           new WaitForLineCommand()
         ),
-        new DriveStraightCommand(6, 0.1),
-        new SequentialCommandGroup(
-          new TurnAngleCommand(-90, 0.1),
-          new ParallelRaceCommandGroup(
-            new FollowLineCommand(0.1),
-            new WaitForDistanceCommand(17)
-          ),
-          new ParallelRaceCommandGroup(
-            new FollowLineCommand(0.1),
-            new SequentialCommandGroup(
-              new BlueMotorMoveToCommand(BlueMotor::ABOVE_ROOF_45_DEGREE_SETPOINT),
-              new WaitForDistanceCommand(7.5)
-            )
-          ),
-          new WaitCommand(500),
-          new BlueMotorMoveToCommand(BlueMotor::PLACE_ROOF_45_DEGREE_SETPOINT)
-        )
+        new DriveStraightCommand(6, 0.125),
+        new TurnAngleCommand(-75, 0.125),
+        new ParallelRaceCommandGroup2(
+          new FollowLineCommand(0.125),
+          new WaitForDistanceCommand(14)
+        ),
+        new BlueMotorMoveToCommand(BlueMotor::ROOF_45_DEGREE_SETPOINT)
+          // new ParallelRaceCommandGroup2(
+          //   new SetMotorsCommand(0.15),
+          //   new WaitCommand(500)
+          // )
       ));
       break;
     case NUM_6:
@@ -182,14 +178,33 @@ void Remote::update() {
       // Release new solar panel
       scheduler->schedule(new SequentialCommandGroup(
           new OpenLinearGripperCommand(),
-          new DriveStraightCommand(6, -0.1)
+          new DriveStraightCommand(6, -0.15)
       ));
       break;
     case NUM_7:
+      Serial.println("NUM_7");
+      scheduler->schedule(new ParallelRaceCommandGroup2(
+        new FollowLineCommand(0.15),
+        new WaitForLineCommand()
+      ));
       break;
     case NUM_8:
+      Serial.println("NUM_8");
+      scheduler->schedule(
+        new ParallelRaceCommandGroup(
+          new FollowLineCommand(0.15),
+          new WaitForDistanceCommand(3)
+        )
+      );
       break;
     case NUM_9:
+      Serial.println("NUM_9");
+      scheduler->schedule(
+        new ParallelRaceCommandGroup2(
+          new FollowLineCommand(0.15),
+          new WaitForDistanceCommand(3)
+        )
+      );
       break;
     default:
       break;

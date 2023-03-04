@@ -14,6 +14,7 @@ BlueMotorMoveToCommand::BlueMotorMoveToCommand(double rotations) {
 }
 
 void BlueMotorMoveToCommand::execute() {
+  // Serial.println("BlueMotorMoveToCommand");
   double error = setpoint - blueMotor->getPosition(units);
   blueMotor->setEffort(K_P * error);
 }

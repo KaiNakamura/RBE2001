@@ -11,6 +11,6 @@ class WaitForDistanceCommand: public Command {
     void end();
   private:
     Ultrasonic *ultrasonic;
-    static const int MIN_NUM_READINGS = 5;
+    static const int MIN_NUM_READINGS = 10;
     double distance, numReadings;
 };

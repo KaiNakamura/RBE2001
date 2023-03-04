@@ -11,4 +11,5 @@ class OpenLinearGripperCommand: public Command {
     void end();
   private:
     LinearGripper *linearGripper;
+    bool hasStarted = false;
 };
